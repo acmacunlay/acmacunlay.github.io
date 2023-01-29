@@ -4,4 +4,5 @@ hide:
   - toc
 ---
 
-Site is still under development. Stay tuned...
+
+Site is still under development...
