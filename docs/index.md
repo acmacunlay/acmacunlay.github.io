@@ -1,1 +1,7 @@
-Site is still under development...
+---
+hide:
+#   - navigation
+  - toc
+---
+
+Site is still under development. Stay tuned...
