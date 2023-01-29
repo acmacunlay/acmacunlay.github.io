@@ -1,4 +1,8 @@
 site_name: Achilles Macunlay
+site_url: https://acmacunlay.github.io/
+
+nav:
+  - Home: index.md
 
 # https://squidfunk.github.io/mkdocs-material/creating-your-site/#configuration
 theme:
@@ -8,16 +12,16 @@ theme:
   palette:
     # Palette toggle for light mode
     - scheme: default
-      accent: deep orange
-      primary: deep orange
+      accent: indigo
+      primary: indigo
       toggle:
         icon: material/lightbulb
         name: Switch to dark mode
 
     # Palette toggle for dark mode
     - scheme: slate
-      accent: deep orange
-      primary: deep orange
+      accent: indigo
+      primary: indigo
       toggle:
         icon: material/lightbulb-outline
         name: Switch to light mode
@@ -53,6 +57,8 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/acmacunlay
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/acmacunlay
 
 copyright: >-
   Copyright &copy; 2023 Achilles C. Macunlay
