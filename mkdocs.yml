@@ -1,5 +1,9 @@
 site_name: Achilles Macunlay
 site_url: https://acmacunlay.github.io/
+site_description: Blog and portfolio of Achilles Macunlay
+site_author: Achilles Macunlay
+
+# repo_url: https://github.com/acmacunlay/blog/
 
 nav:
   - Home: index.md
@@ -15,7 +19,7 @@ theme:
       accent: indigo
       primary: indigo
       toggle:
-        icon: material/lightbulb
+        icon: material/lightbulb-outline
         name: Switch to dark mode
 
     # Palette toggle for dark mode
@@ -23,7 +27,7 @@ theme:
       accent: indigo
       primary: indigo
       toggle:
-        icon: material/lightbulb-outline
+        icon: material/lightbulb
         name: Switch to light mode
 
   # https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/
@@ -33,14 +37,17 @@ theme:
 
   # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/
   icon:
-    logo: material/library-shelves
+    logo: material/book-cog-outline
 
   # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/
   features:
     - navigation.footer
     - navigation.instant
+    - navigation.sections
     - navigation.tabs
+    - navigation.top
     - navigation.tracking
+    - toc.integrate
 
 # https://squidfunk.github.io/mkdocs-material/setup/ensuring-data-privacy/
 extra:
@@ -60,6 +67,10 @@ extra:
       link: https://github.com/acmacunlay
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/acmacunlay
+
+# # https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/
+# plugins:
+#   - tags
 
 copyright: >-
   Copyright &copy; 2023 Achilles C. Macunlay
