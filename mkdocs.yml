@@ -7,7 +7,7 @@ site_author: Achilles Macunlay
 
 nav:
   - Home: index.md
-  - Tags: tags.md
+  # - Tags: tags.md
 
 # https://squidfunk.github.io/mkdocs-material/creating-your-site/#configuration
 theme:
