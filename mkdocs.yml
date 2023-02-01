@@ -7,6 +7,7 @@ site_author: Achilles Macunlay
 
 nav:
   - Home: index.md
+  # - Tags: tags.md
 
 # https://squidfunk.github.io/mkdocs-material/creating-your-site/#configuration
 theme:
@@ -14,26 +15,30 @@ theme:
 
   # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/
   palette:
-    # Palette toggle for light mode
-    - scheme: default
-      accent: indigo
-      primary: indigo
-      toggle:
-        icon: material/lightbulb-outline
-        name: Switch to dark mode
+    # # Palette toggle for light mode
+    # - scheme: default
+    #   accent: teal
+    #   primary: teal
+    #   toggle:
+    #     icon: material/lightbulb-outline
+    #     name: Switch to dark mode
 
-    # Palette toggle for dark mode
-    - scheme: slate
-      accent: indigo
-      primary: indigo
-      toggle:
-        icon: material/lightbulb
-        name: Switch to light mode
+    # # Palette toggle for dark mode
+    # - scheme: slate
+    #   accent: teal
+    #   primary: teal
+    #   toggle:
+    #     icon: material/lightbulb
+    #     name: Switch to light mode
+
+    scheme: slate
+    accent: deep orange
+    primary: deep orange
 
   # https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/
   font:
-    text: Roboto
-    code: Roboto Mono
+    text: Fira Sans
+    code: Fira Code
 
   # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/
   icon:
@@ -47,7 +52,8 @@ theme:
     - navigation.tabs
     - navigation.top
     - navigation.tracking
-    - toc.integrate
+    # - toc.integrate
+    - content.code.copy
 
 # https://squidfunk.github.io/mkdocs-material/setup/ensuring-data-privacy/
 extra:
@@ -68,12 +74,18 @@ extra:
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/acmacunlay
 
-# # https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/
-# plugins:
-#   - tags
+# https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/
+plugins:
+  - tags:
+      tags_file: tags.md
 
-copyright: >-
-  Copyright &copy; 2023 Achilles C. Macunlay
-  <br>
-  <a href="#__consent">Change Cookie Settings</a>
-  <br>
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+copyright: Copyright &copy; 2023 Achilles C. Macunlay

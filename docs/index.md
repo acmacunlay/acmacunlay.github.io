@@ -1,8 +1,6 @@
 ---
 hide:
-#   - navigation
-  - toc
+  - footer
 ---
-
 
 Site is still under development...
