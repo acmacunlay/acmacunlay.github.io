@@ -16,41 +16,23 @@ theme:
 
   # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/
   palette:
-    # # Palette toggle for light mode
-    # - scheme: default
-    #   accent: teal
-    #   primary: teal
-    #   toggle:
-    #     icon: material/lightbulb-outline
-    #     name: Switch to dark mode
-
-    # # Palette toggle for dark mode
-    # - scheme: slate
-    #   accent: teal
-    #   primary: teal
-    #   toggle:
-    #     icon: material/lightbulb
-    #     name: Switch to light mode
-
     scheme: default
-    accent: deep orange
-    primary: deep orange
 
   # https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/
   font:
-    text: Fira Sans
-    code: Fira Code
+    text: Roboto
+    code: Roboto Mono
 
   # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/
-  icon:
-    logo: material/book-cog-outline
+  # icon:
+  #   logo: material/book-cog-outline
 
   # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/
   features:
     - navigation.footer
     - navigation.instant
     - navigation.sections
-    - navigation.tabs
+    # - navigation.tabs
     - navigation.top
     - navigation.tracking
     # - toc.integrate
