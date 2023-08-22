@@ -46,6 +46,7 @@ plugins:
       archive: false
       post_date_format: full
       authors: true
+      authors_file: blog/.authors.yml
   - tags:
       tags_file: tags.md
 
