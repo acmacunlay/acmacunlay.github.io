@@ -1,8 +1,17 @@
 ---
+draft: true
+date: 2023-08-22
+authors:
+  - acmacunlay
+categories:
+  - Python
+  - Software Development
+
 hide:
   - footer
 tags:
   - Python
+  - Software Development
 ---
 
 # How to use Python's logging module?
@@ -11,50 +20,52 @@ tags:
 
 Python's `logging` module is a powerful tool to help track and debug events in your software application. This article will guide you through the basics of logging and demonstrate how to implement it in your Python projects. With logging, you can keep track of important events and detect errors more easily, making your software more robust and reliable. Learning how to use logging will be a valuable asset to your skill set.
 
+<!-- more -->
+
 ## Setup
 
 In your favorite terminal application, do the following:
 
 1. **Create a directory for your project.**
 
-    ```bash
+   ```bash
 
-    mkdir python-logging-tutorial
-    cd python-logging-tutorial
+   mkdir python-logging-tutorial
+   cd python-logging-tutorial
 
-    ```
+   ```
 
 2. **Set up a virtual environment.** This will keep you, the developer, from "polluting" your Python installation of unnecessary libraries and modules. Having a virtual environment will also isolate your project from other projects, preventing conflicts in your dependencies.
 
-    ```bash
+   ```bash
 
-    python -m venv .venv
+   python -m venv .venv
 
-    ```
+   ```
 
 3. **Activate your virtual environment.** Activating the virtual environment will direct your project to the "localized" copy of Python. Once activated, all dependencies you will install will be stored only in that localized Python.
 
-    ```bash
+   ```bash
 
-    .venv/scripts/activate
+   .venv/scripts/activate
 
-    ```
+   ```
 
 4. **Update `pip`.** Update pip and let it do its thing. This is important to stay up to date with anything that they flag as deprecated and/or whatnot.
 
-    ```bash
+   ```bash
 
-    python -m pip install --upgrade --no-cache-dir pip
+   python -m pip install --upgrade --no-cache-dir pip
 
-    ```
+   ```
 
 5. _(Recurring)_ **Save your dependencies.** Everytime you install a new module or package, save all your dependenciesusing `pip`. This will list down all your 3rd party dependencies in a file.
 
-    ```bash
+   ```bash
 
-    python -m pip freeze > requirements.txt
+   python -m pip freeze > requirements.txt
 
-    ```
+   ```
 
 ---
 
@@ -140,6 +151,8 @@ def add_stream_handler(
     return logger
 
 ```
+
+<script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Facmacunlay%2Fgsm-hat%2Fblob%2Fstable%2FgsmHat%2FgsmHat.py&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
 
 ---
 
