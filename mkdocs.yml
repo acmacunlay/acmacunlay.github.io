@@ -5,7 +5,7 @@ site_author: Achilles C. Macunlay
 
 nav:
   - Home: index.md
-  - Blog: blog/index.md
+  - Articles: blog/index.md
   # - Tags: tags.md
 
 theme:
@@ -24,6 +24,7 @@ theme:
   favicon: assets/images/favicon.png
 
   features:
+    - content.code.annotate
     - navigation.instant
     - navigation.sections
     - navigation.tabs
@@ -46,6 +47,7 @@ plugins:
       archive: false
       post_date_format: full
       authors: true
+      authors_file: blog/.authors.yml
   - tags:
       tags_file: tags.md
 
@@ -54,6 +56,8 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.highlight:
       anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences

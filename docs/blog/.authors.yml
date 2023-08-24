@@ -1,4 +1,5 @@
-acmacunlay:
-  name: Achilles Macunlay
-  description: Author
-  avatar: https://github.com/acmacunlay.png
+authors:
+  acmacunlay:
+    name: Achilles Macunlay
+    description: Author
+    avatar: https://github.com/acmacunlay.png
