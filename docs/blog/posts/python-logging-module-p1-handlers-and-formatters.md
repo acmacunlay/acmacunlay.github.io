@@ -2,7 +2,7 @@
 draft: false
 date: 2023-08-24
 authors:
-  - acmacunlay
+  - achilles.macunlay
 categories:
   - Python
   - Software Development
@@ -19,6 +19,15 @@ tags:
 Python's standard logging module offers a robust solution for developers to track and manage an application's behavior. This post delves into the practical usage of Python's logging module and sheds light on the role of Handlers and Formatters. Understanding these elements equips developers with the tools needed to enhance code reliability and streamline troubleshooting processes.
 
 <!-- more -->
+
+??? note "Changelog"
+
+    - 2023-08-25
+        - moved changelog further up
+        - added an example for `FileHandler`
+        - renamed some headers
+    - 2023-08-24
+        - initially published
 
 ## Handlers
 
@@ -53,7 +62,11 @@ Common placeholders include:
 
 ## Usage
 
-### Example: Using `StreamHandler`
+### `StreamHandler`
+
+The `StreamHandler` class is a handler that sends log records to a specified output stream, such as the console (`stdout`) or a file-like object. The `Formatter` class is used to define the format of the log messages.
+
+Here's an example of how to use `StreamHandler` and `Formatter` together:
 
 ```python title="logging_stream_handler.py" linenums="1"
 import logging
@@ -97,12 +110,62 @@ logger.exception("Exception message.")
 2. Create a `Formatter` object. This will define how `LogRecord`s will look like in the output. See the [official documentation](https://docs.python.org/3/library/logging.html#logrecord-attributes) for all the available `LogRecord` attributes.
 3. Create a `StreamHandler` object. `StreamHandler`s send log messages to a specified stream, typically the console (`sys.stdout` or `sys.stderr`).
 4. Attach the `Formatter` object to the `StreamHandler` object.
-4. Attach the `StreamHandler` object to the `Logger` object.
+5. Attach the `StreamHandler` object to the `Logger` object.
 
-!!! note
+!!! note ""
 
-    This code snippet should run as-is.
+    The above script should run as-is.
 
-## Changelog
-- 2023-08-24
-    - initially published
+### `FileHandler`
+
+In addition to using the `StreamHandler` to log messages to the console, you can also use the `FileHandler` to log messages to a file. Here's an example of how to use the `FileHandler` and `Formatter` together:
+
+```python title="logging_file_handler.py" linenums="1"
+import logging
+import time
+import typing
+
+LOGGER_NAME: typing.Final[str] = "LoggerName"
+LOG_FILE_PATH: typing.Final[str] = "event.log"
+
+logger = logging.getLogger(LOGGER_NAME) # (1)!
+logger.setLevel(logging.DEBUG)
+
+formatter = logging.Formatter( # (2)!
+    (
+        "%(asctime)s.%(msecs)03d" + time.strftime("%z") + " "
+        "| %(process)-8d "
+        "| %(thread)-16d "
+        "| %(levelname)-8s "
+        "| %(lineno)-4d "
+        "| %(message)s"
+    ),
+    "%Y-%m-%dT%H:%M:%S",
+)
+
+handler = logging.FileHandler(LOG_FILE_PATH) # (3)!
+handler.setLevel(logging.DEBUG)
+handler.setFormatter(formatter) # (4)!
+
+logger.addHandler(handler) # (5)!
+
+# NOTE: (6)
+logger.debug("Debug message.")
+logger.info("Info message.")
+logger.warning("Warning message.")
+logger.error("Error message.")
+logger.critical("Warning message.")
+logger.exception("Exception message.")
+
+```
+
+1. Return a `Logger` object named `LOGGER_NAME`. If such `Logger` does not exist, then it will be created and returned.
+2. Create a `Formatter` object. This will define how `LogRecord`s will look like in the output. See the [official documentation](https://docs.python.org/3/library/logging.html#logrecord-attributes) for all the available `LogRecord` attributes.
+3. Create a `FileHandler` object. `FileHandler`s writes log messages to a specified file (in this case, in `event.log`).
+4. Attach the `Formatter` object to the `FileHandler` object.
+5. Attach the `FileHandler` object to the `Logger` object.
+6. The output logs should be found in a file named `event.log`
+
+!!! note ""
+
+    The above script should run as-is.
