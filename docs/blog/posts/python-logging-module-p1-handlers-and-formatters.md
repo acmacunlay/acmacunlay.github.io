@@ -1,6 +1,6 @@
 ---
-draft: true
-date: 2023-08-22
+draft: false
+date: 2023-08-24
 authors:
   - acmacunlay
 categories:
@@ -53,7 +53,7 @@ Common placeholders include:
 
 ## Usage
 
-### Example: Using StreamHandler
+### Example: Using `StreamHandler`
 
 ```python title="logging_stream_handler.py" linenums="1"
 import logging
@@ -65,7 +65,7 @@ LOGGER_NAME: typing.Final[str] = "LoggerName"
 logger = logging.getLogger(LOGGER_NAME) # (1)!
 logger.setLevel(logging.DEBUG)
 
-formatter = logging.Formatter(
+formatter = logging.Formatter( # (2)!
     (
         "%(asctime)s.%(msecs)03d" + time.strftime("%z") + " "
         "| %(process)-8d "
@@ -77,11 +77,11 @@ formatter = logging.Formatter(
     "%Y-%m-%dT%H:%M:%S",
 )
 
-handler = logging.StreamHandler()
+handler = logging.StreamHandler() # (3)!
 handler.setLevel(logging.DEBUG)
-handler.setFormatter(formatter)
+handler.setFormatter(formatter) # (4)!
 
-logger.addHandler(handler)
+logger.addHandler(handler) # (5)!
 
 # Sample
 logger.debug("Debug message.")
@@ -94,3 +94,15 @@ logger.exception("Exception message.")
 ```
 
 1. Return a `Logger` object named `LOGGER_NAME`. If such `Logger` does not exist, then it will be created and returned.
+2. Create a `Formatter` object. This will define how `LogRecord`s will look like in the output. See the [official documentation](https://docs.python.org/3/library/logging.html#logrecord-attributes) for all the available `LogRecord` attributes.
+3. Create a `StreamHandler` object. `StreamHandler`s send log messages to a specified stream, typically the console (`sys.stdout` or `sys.stderr`).
+4. Attach the `Formatter` object to the `StreamHandler` object.
+4. Attach the `StreamHandler` object to the `Logger` object.
+
+!!! note
+
+    This code snippet should run as-is.
+
+## Changelog
+- 2023-08-24
+    - initially published

@@ -5,7 +5,7 @@ site_author: Achilles C. Macunlay
 
 nav:
   - Home: index.md
-  - Blog: blog/index.md
+  - Articles: blog/index.md
   # - Tags: tags.md
 
 theme:
