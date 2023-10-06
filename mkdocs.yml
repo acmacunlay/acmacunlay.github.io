@@ -6,7 +6,8 @@ site_author: Achilles C. Macunlay
 nav:
   - Home: index.md
   - Tags: tags.md
-  - Articles: blog/index.md
+  - Articles:
+      - blog/index.md
 
 theme:
   name: material
