@@ -5,14 +5,13 @@ site_author: Achilles C. Macunlay
 
 nav:
   - Home: index.md
-  - Articles: blog/index.md
   - Tags: tags.md
+  - Articles: blog/index.md
 
 theme:
   name: material
   palette:
     primary: white
-    accent: deep orange
   font:
     text: Ubuntu
     code: Ubuntu Mono
