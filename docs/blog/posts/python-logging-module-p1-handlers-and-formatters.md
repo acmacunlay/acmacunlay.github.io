@@ -6,7 +6,6 @@ authors:
 categories:
   - Python
   - Software Development
-
 tags:
   - Python
   - Software Development
@@ -22,12 +21,16 @@ Python's standard logging module offers a robust solution for developers to trac
 
 ??? note "Changelog"
 
+    - 2023-10-06
+        - minor formatting
     - 2023-08-25
         - moved changelog further up
         - added an example for `FileHandler`
         - renamed some headers
     - 2023-08-24
         - initially published
+
+---
 
 ## Handlers
 
@@ -59,6 +62,8 @@ Common placeholders include:
 - `%filename%` : The name of the source file where the logging call was made.
 - `%lineno%` : The line number in the source file where the logging call was made.
 - `%funcName%` : The name of the function where the logging call was made.
+
+---
 
 ## Usage
 
@@ -169,3 +174,9 @@ logger.exception("Exception message.")
 !!! note ""
 
     The above script should run as-is.
+
+---
+
+## Conclusion
+
+In summary, Python's `logging` module empowers developers with effective tools to manage and record information within their applications. We've covered key aspects, including loggers, formatters, and practical examples of `StreamHandler` and `FileHandler` usage. Getting familiar with this tool enhances your ability to create reliable and maintainable Python projects. Logging aids in understanding application behavior, simplifies debugging, and contributes to robust software development.

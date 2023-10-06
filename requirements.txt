@@ -1,10 +1,15 @@
 Babel==2.12.1
 beautifulsoup4==4.12.2
+cairocffi==1.6.1
+CairoSVG==2.7.1
 certifi==2023.7.22
+cffi==1.16.0
 charset-normalizer==3.2.0
 click==8.1.7
 colorama==0.4.6
 cssselect==1.2.0
+cssselect2==0.7.0
+defusedxml==0.7.1
 ghp-import==2.1.0
 idna==3.4
 Jinja2==3.1.2
@@ -19,7 +24,9 @@ mkdocs-material-extensions==1.1.1
 packaging==23.1
 paginate==0.5.6
 pathspec==0.11.2
+Pillow==10.0.1
 platformdirs==3.10.0
+pycparser==2.21
 Pygments==2.16.1
 pymdown-extensions==10.1
 pyquery==2.0.0
@@ -31,5 +38,7 @@ regex==2023.8.8
 requests==2.31.0
 six==1.16.0
 soupsieve==2.4.1
+tinycss2==1.2.1
 urllib3==2.0.4
 watchdog==3.0.0
+webencodings==0.5.1

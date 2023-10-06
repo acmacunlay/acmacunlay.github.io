@@ -1,22 +1,21 @@
 site_name: Achilles Macunlay
-site_url: https://acmacunlay.github.io/
-site_description: Blog and portfolio of Achilles C. Macunlay
+site_url: https://achilles.macunlay.com/
+site_description: Achilles C. Macunlay
 site_author: Achilles C. Macunlay
 
 nav:
   - Home: index.md
   - Articles: blog/index.md
-  # - Tags: tags.md
+  - Tags: tags.md
 
 theme:
   name: material
-
   palette:
     primary: white
-
+    accent: deep orange
   font:
-    text: Fira Sans
-    code: Fira Code
+    text: Ubuntu
+    code: Ubuntu Mono
 
   icon:
     logo: material/code-json
@@ -31,8 +30,36 @@ theme:
     - navigation.top
     - navigation.tracking
     - content.code.copy
+    - search.suggest
+    - search.highlight
 
 extra:
+  analytics:
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/thumb-up-outline
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/thumb-down-outline
+          name: This page could be improved
+          data: 0
+          note: >-
+            Thanks for your feedback!
+    provider: google
+    property: G-CE6N5FR534
+  consent:
+    title: Cookie consent
+    description: >- 
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+    actions:
+      - accept
+      - manage 
   generator: false
   social:
     - icon: fontawesome/brands/github
@@ -48,6 +75,10 @@ plugins:
       post_date_format: full
       authors: true
       authors_file: blog/.authors.yml
+  - search
+  - social:
+      cards_layout_options:
+        font_family: Ubuntu
   - tags:
       tags_file: tags.md
 
@@ -62,4 +93,7 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.superfences
 
-copyright: Copyright &copy; 2023 Achilles C. Macunlay
+copyright: >-
+  Copyright &copy; 2023 Achilles C. Macunlay
+  <br>
+  <a href="#__consent">Change Cookie Settings</a>
