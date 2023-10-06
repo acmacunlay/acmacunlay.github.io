@@ -76,9 +76,9 @@ plugins:
       authors: true
       authors_file: blog/.authors.yml
   - search
-  - social:
-      cards_layout_options:
-        font_family: Ubuntu
+  # - social:
+  #     cards_layout_options:
+  #       font_family: Ubuntu
   - tags:
       tags_file: tags.md
 
