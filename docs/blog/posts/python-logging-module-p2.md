@@ -343,6 +343,3 @@ The implementation of CloudWatch Logs in Python using boto3 and a custom CloudWa
 In conclusion, harnessing the power of AWS CloudWatch Logs in Python by leveraging a custom CloudWatch Logs Handler subclass of Python's logging module offers developers a robust and flexible solution for centralized log management. This implementation empowers Python applications to seamlessly transmit log data to CloudWatch Logs, allowing for real-time monitoring, comprehensive troubleshooting, and a wealth of potential use cases. Whether tracking application performance, debugging issues, or ensuring compliance and security, the integration of CloudWatch Logs through a custom handler equips developers with the essential tools to take control of their log data and optimize their AWS environment.
 
 ---
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
-<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
