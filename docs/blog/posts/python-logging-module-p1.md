@@ -11,7 +11,7 @@ tags:
   - Software Development
 ---
 
-# Python `logging` Module Part 1: Handlers and Formatters
+# Python Logging Part 1: Handlers and Formatters
 
 ---
 

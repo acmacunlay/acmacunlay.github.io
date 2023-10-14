@@ -77,9 +77,11 @@ plugins:
       categories_name: Categories
       pagination: true
       pagination_per_page: 10
+      post_url_format: "{slug}"
   - search
   - tags:
       tags_file: tags.md
+  - glightbox
 
 markdown_extensions:
   - admonition
@@ -91,6 +93,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - attr_list
+  - md_in_html
 
 copyright: >-
   Copyright &copy; 2023 Achilles C. Macunlay
