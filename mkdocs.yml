@@ -66,6 +66,7 @@ extra:
       link: https://www.linkedin.com/in/acmacunlay
 
 plugins:
+  - glightbox
   - blog:
       blog_dir: blog
       enabled: true
@@ -81,7 +82,6 @@ plugins:
   - search
   - tags:
       tags_file: tags.md
-  - glightbox
 
 markdown_extensions:
   - admonition
