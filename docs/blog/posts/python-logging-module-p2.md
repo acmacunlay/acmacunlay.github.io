@@ -23,6 +23,8 @@ Incorporating AWS CloudWatch Logs into Python applications via a custom logging 
 
 ??? note "Changelog"
 
+    - 2023-10-15
+        - minor formatting
     - 2023-10-14
         - initially published
 
@@ -42,216 +44,216 @@ Before proceeding with the next sections, you must ensure that you have:
 
 To integrate AWS CloudWatch Logs in Python using [boto3](https://pypi.org/project/boto3/) and subclassing the `Handler` class of the standard logging module, you can create a custom CloudWatch Logs handler. Here's a step-by-step guide:
 
-1. Install the necessary libraries if you haven't already:
+Step 1: Install the necessary libraries if you haven't already:
 
-    ```shell
-    pip install boto3 boto3-stubs[logs]
+```shell
+pip install boto3 boto3-stubs[logs]
 
-    ```
+```
 
-2. Create a custom CloudWatch Logs handler by subclassing the `logging.Handler` class. Override the `emit` method to send log messages to CloudWatch Logs:
+Step 2: Create a custom CloudWatch Logs handler by subclassing the `logging.Handler` class. Override the `emit` method to send log messages to CloudWatch Logs:
 
-    !!! note
-        The snippet below is annotated to explain blocks of code inline.
+!!! note
+    The snippet below is annotated to explain blocks of code inline.
 
-    ```python title="aws_cloudwatch_logs_handler.py" linenums="1"
-    import datetime
-    import logging
-    import time
-    import typing
-    import uuid
+```python title="aws_cloudwatch_logs_handler.py" linenums="1"
+import datetime
+import logging
+import time
+import typing
+import uuid
 
-    import boto3
-    from mypy_boto3_logs import client, type_defs
+import boto3
+from mypy_boto3_logs import client, type_defs
 
-    LogGroupRetentionDaysType = typing.Optional[
-        typing.Literal[
-            1,
-            3,
-            5,
-            7,
-            14,
-            30,
-            60,
-            90,
-            120,
-            150,
-            180,
-            365,
-            400,
-            545,
-            731,
-            1096,
-            1827,
-            2192,
-            2557,
-            2922,
-            3288,
-            3653,
-        ]
+LogGroupRetentionDaysType = typing.Optional[
+    typing.Literal[
+        1,
+        3,
+        5,
+        7,
+        14,
+        30,
+        60,
+        90,
+        120,
+        150,
+        180,
+        365,
+        400,
+        545,
+        731,
+        1096,
+        1827,
+        2192,
+        2557,
+        2922,
+        3288,
+        3653,
     ]
+]
+"""
+See: [PutRetentionPolicy](https://tinyurl.com/5fsu3brf)
+"""
+
+
+class CloudWatchLogsHandler(logging.Handler):
     """
-    See: [PutRetentionPolicy](https://tinyurl.com/5fsu3brf)
+    A custom logging handler based on [cloudwatch](https://pypi.org/project/cloudwatch/)
+    by [labrixdigital](https://github.com/labrixdigital)
     """
 
+    def __init__(
+        self,
+        log_group: str = None,
+        *,
+        log_stream: typing.Optional[str] = None,
+        ttl: LogGroupRetentionDaysType = None,
+        access_key: typing.Optional[str] = None,
+        secret_key: typing.Optional[str] = None,
+        region: typing.Optional[str] = None,
+        profile: typing.Optional[str] = None,
+    ) -> None:
+        self.__log_group = self.__resolve_log_group(log_group)
+        self.__log_stream = self.__resolve_log_stream(log_stream)
+        self.__client = self.__resolve_client(profile, access_key, secret_key, region)
+        self.__next_sequence_token: typing.Optional[str] = None
+        self.__resolve_resources(ttl)
 
-    class CloudWatchLogsHandler(logging.Handler):
-        """
-        A custom logging handler based on [cloudwatch](https://pypi.org/project/cloudwatch/)
-        by [labrixdigital](https://github.com/labrixdigital)
-        """
+        logging.Handler.__init__(self)
 
-        def __init__(
-            self,
-            log_group: str = None,
-            *,
-            log_stream: typing.Optional[str] = None,
-            ttl: LogGroupRetentionDaysType = None,
-            access_key: typing.Optional[str] = None,
-            secret_key: typing.Optional[str] = None,
-            region: typing.Optional[str] = None,
-            profile: typing.Optional[str] = None,
-        ) -> None:
-            self.__log_group = self.__resolve_log_group(log_group)
-            self.__log_stream = self.__resolve_log_stream(log_stream)
-            self.__client = self.__resolve_client(profile, access_key, secret_key, region)
-            self.__next_sequence_token: typing.Optional[str] = None
-            self.__resolve_resources(ttl)
+    def __resolve_log_group(self, log_group: str) -> str:
+        if log_group is None:
+            raise ValueError("Log Group name is required.")
 
-            logging.Handler.__init__(self)
+        return log_group
 
-        def __resolve_log_group(self, log_group: str) -> str:
-            if log_group is None:
-                raise ValueError("Log Group name is required.")
+    def __resolve_log_stream(self, log_stream: str) -> str:
+        if log_stream is None: 
+            return "stream/{}/{}".format(
+                datetime.datetime.strftime(datetime.datetime.utcnow(), "%Y/%m/%d/%H%M"),
+                str(uuid.uuid4()),
+            )
 
-            return log_group
+        return log_stream
 
-        def __resolve_log_stream(self, log_stream: str) -> str:
-            if log_stream is None: 
-                return "stream/{}/{}".format(
-                    datetime.datetime.strftime(datetime.datetime.utcnow(), "%Y/%m/%d/%H%M"),
-                    str(uuid.uuid4()),
-                )
+    def __resolve_client(
+        self,
+        profile: typing.Optional[str],
+        access_key: typing.Optional[str],
+        secret_key: typing.Optional[str],
+        region: typing.Optional[str],
+    ) -> client.CloudWatchLogsClient:
+        if profile is not None: # (1)!
+            session = boto3.Session(profile_name=profile)
+            return typing.cast(client.CloudWatchLogsClient, session.client("logs"))
 
-            return log_stream
+        if (access_key is None) and (secret_key is None) and (region is None): # (2)!
+            return typing.cast(client.CloudWatchLogsClient, boto3.client("logs"))
 
-        def __resolve_client(
-            self,
-            profile: typing.Optional[str],
-            access_key: typing.Optional[str],
-            secret_key: typing.Optional[str],
-            region: typing.Optional[str],
-        ) -> client.CloudWatchLogsClient:
-            if profile is not None: # (1)!
-                session = boto3.Session(profile_name=profile)
-                return typing.cast(client.CloudWatchLogsClient, session.client("logs"))
+        elif access_key is None: # (3)!
+            return typing.cast(
+                client.CloudWatchLogsClient, boto3.client("logs", region_name=region)
+            )
 
-            if (access_key is None) and (secret_key is None) and (region is None): # (2)!
-                return typing.cast(client.CloudWatchLogsClient, boto3.client("logs"))
+        else: # (4)!
+            session = boto3.Session(
+                aws_access_key_id=access_key,
+                aws_secret_access_key=secret_key,
+                region_name=region,
+            )
+            return typing.cast(client.CloudWatchLogsClient, session.client("logs"))
 
-            elif access_key is None: # (3)!
-                return typing.cast(
-                    client.CloudWatchLogsClient, boto3.client("logs", region_name=region)
-                )
-
-            else: # (4)!
-                session = boto3.Session(
-                    aws_access_key_id=access_key,
-                    aws_secret_access_key=secret_key,
-                    region_name=region,
-                )
-                return typing.cast(client.CloudWatchLogsClient, session.client("logs"))
-
-        def __resolve_resources(self, ttl: LogGroupRetentionDaysType) -> None:
-            try: # (5)!
-                response: type_defs.DescribeLogStreamsResponseTypeDef = (
-                    self.__client.describe_log_streams(logGroupName=self.__log_group)
-                )
-                for each_log_stream in response["logStreams"]:
-                    if each_log_stream["logStreamName"] == self.__log_stream:
-                        self.__next_sequence_token = (
-                            each_log_stream["uploadSequenceToken"]
-                            if "uploadSequenceToken" in each_log_stream
-                            else None
-                        )
-
-                if self.__next_sequence_token == None: # (6)!
-                    self.__client.create_log_stream(
-                        logGroupName=self.__log_group, logStreamName=self.__log_stream
+    def __resolve_resources(self, ttl: LogGroupRetentionDaysType) -> None:
+        try: # (5)!
+            response: type_defs.DescribeLogStreamsResponseTypeDef = (
+                self.__client.describe_log_streams(logGroupName=self.__log_group)
+            )
+            for each_log_stream in response["logStreams"]:
+                if each_log_stream["logStreamName"] == self.__log_stream:
+                    self.__next_sequence_token = (
+                        each_log_stream["uploadSequenceToken"]
+                        if "uploadSequenceToken" in each_log_stream
+                        else None
                     )
 
-            except self.__client.exceptions.ResourceNotFoundException: # (7)!
-                self.__client.create_log_group(logGroupName=self.__log_group)
+            if self.__next_sequence_token == None: # (6)!
                 self.__client.create_log_stream(
                     logGroupName=self.__log_group, logStreamName=self.__log_stream
                 )
-                if ttl is not None:
-                    self.__client.put_retention_policy(
-                        logGroupName=self.__log_group, retentionInDays=ttl
-                    )
 
-            except self.__client.exceptions.ResourceAlreadyExistsException: # (8)!
-                pass
-
-        def send_log(self, timestamp: int, message: str) -> None:
-            log_event = type_defs.InputLogEventTypeDef(timestamp=timestamp, message=message)
-
-            if self.__next_sequence_token is not None:
-                response = self.__client.put_log_events(
-                    logGroupName=self.__log_group,
-                    logStreamName=self.__log_stream,
-                    sequenceToken=self.__next_sequence_token,
-                    logEvents=[log_event],
-                )
-            else:
-                response = self.__client.put_log_events(
-                    logGroupName=self.__log_group,
-                    logStreamName=self.__log_stream,
-                    logEvents=[log_event],
+        except self.__client.exceptions.ResourceNotFoundException: # (7)!
+            self.__client.create_log_group(logGroupName=self.__log_group)
+            self.__client.create_log_stream(
+                logGroupName=self.__log_group, logStreamName=self.__log_stream
+            )
+            if ttl is not None:
+                self.__client.put_retention_policy(
+                    logGroupName=self.__log_group, retentionInDays=ttl
                 )
 
-            self.__next_sequence_token = response["nextSequenceToken"] # (9)!
+        except self.__client.exceptions.ResourceAlreadyExistsException: # (8)!
+            pass
 
-        def emit(self, record: logging.LogRecord) -> None:
-            """
-            This is the overriden function from the handler to send logs to AWS
-            """
+    def send_log(self, timestamp: int, message: str) -> None:
+        log_event = type_defs.InputLogEventTypeDef(timestamp=timestamp, message=message)
 
-            timestamp = round(time.time() * 1000) # (10)!
-            message = self.format(record) # (11)!
+        if self.__next_sequence_token is not None:
+            response = self.__client.put_log_events(
+                logGroupName=self.__log_group,
+                logStreamName=self.__log_stream,
+                sequenceToken=self.__next_sequence_token,
+                logEvents=[log_event],
+            )
+        else:
+            response = self.__client.put_log_events(
+                logGroupName=self.__log_group,
+                logStreamName=self.__log_stream,
+                logEvents=[log_event],
+            )
 
-            try:
-                self.send_log(timestamp, message)
+        self.__next_sequence_token = response["nextSequenceToken"] # (9)!
 
-            except self.__client.exceptions.DataAlreadyAcceptedException as e: # (12)!
-                e_str = str(e)
-                self.__next_sequence_token = e_str[e_str.find("sequenceToken: ") + 15 :]
+    def emit(self, record: logging.LogRecord) -> None:
+        """
+        This is the overriden function from the handler to send logs to AWS
+        """
 
-            except self.__client.exceptions.InvalidSequenceTokenException as e: # (13)!
-                e_str = str(e)
-                self.__next_sequence_token = e_str[e_str.find("sequenceToken is: ") + 18 :]
-                self.send_log(timestamp, message)
+        timestamp = round(time.time() * 1000) # (10)!
+        message = self.format(record) # (11)!
 
-            except self.__client.exceptions.ClientError as e: # (14)!
-                time.sleep(3)
-                self.send_log(timestamp, message)
+        try:
+            self.send_log(timestamp, message)
 
-    ```
+        except self.__client.exceptions.DataAlreadyAcceptedException as e: # (12)!
+            e_str = str(e)
+            self.__next_sequence_token = e_str[e_str.find("sequenceToken: ") + 15 :]
 
-    1. Return `client` based on provided profile.
-    2. Return `client` based on AWS credentials set in config file.
-    3. Return `client` based on AWS credentials set in config file and custom region.
-    4. Return `client` based on manually entered AWS credentials.
-    5. Find the sequence token in the log streams.
-    6. If no sequence token is found, then create the stream.
-    7. On `ResourceNotFoundException`, create the log group.
-    8. On `ResourceAlreadyExistsException`, ignore.
-    9. Store the next sequence token.
-    10. Get the current Unix time in milliseconds (required by AWS).
-    11. Format the message using the configured `Formatter`.
-    12. Ignore `DataAlreadyAcceptedException` and get next sequence token.
-    13. If the current sequence token is invalid, change the sequence token and retry.
-    14. Wait and try resending.
+        except self.__client.exceptions.InvalidSequenceTokenException as e: # (13)!
+            e_str = str(e)
+            self.__next_sequence_token = e_str[e_str.find("sequenceToken is: ") + 18 :]
+            self.send_log(timestamp, message)
+
+        except self.__client.exceptions.ClientError as e: # (14)!
+            time.sleep(3)
+            self.send_log(timestamp, message)
+
+```
+
+1. Return `client` based on provided profile.
+2. Return `client` based on AWS credentials set in config file.
+3. Return `client` based on AWS credentials set in config file and custom region.
+4. Return `client` based on manually entered AWS credentials.
+5. Find the sequence token in the log streams.
+6. If no sequence token is found, then create the stream.
+7. On `ResourceNotFoundException`, create the log group.
+8. On `ResourceAlreadyExistsException`, ignore.
+9. Store the next sequence token.
+10. Get the current Unix time in milliseconds (required by AWS).
+11. Format the message using the configured `Formatter`.
+12. Ignore `DataAlreadyAcceptedException` and get next sequence token.
+13. If the current sequence token is invalid, change the sequence token and retry.
+14. Wait and try resending.
 
 ---
 
@@ -332,7 +334,7 @@ The implementation of CloudWatch Logs in Python using boto3 and a custom CloudWa
 
 1. **Application Logging**: Centralized logging for your Python applications to monitor their behavior, troubleshoot issues, and track application performance.
 2. **Distributed Systems**: In distributed systems, you can aggregate logs from different components and services into a single CloudWatch Logs log group for centralized monitoring.
-3. **Error Trackin**g: Use CloudWatch Logs to capture and track application errors, exceptions, and stack traces, making it easier to identify and resolve issues.
+3. **Error Tracking**: Use CloudWatch Logs to capture and track application errors, exceptions, and stack traces, making it easier to identify and resolve issues.
 4. **Security and Compliance**: Store security-related logs and audit trails in CloudWatch Logs to help meet compliance requirements and monitor suspicious activities.
 5. **Application Performance Monitoring (APM)**: Correlate logs with performance data to gain insights into application performance and pinpoint bottlenecks.
 
