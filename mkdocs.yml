@@ -32,32 +32,32 @@ theme:
     - search.highlight
 
 extra:
-  analytics:
-    feedback:
-      title: Was this page helpful?
-      ratings:
-        - icon: material/thumb-up-outline
-          name: This page was helpful
-          data: 1
-          note: >-
-            Thanks for your feedback!
-        - icon: material/thumb-down-outline
-          name: This page could be improved
-          data: 0
-          note: >-
-            Thanks for your feedback!
-    provider: google
-    property: G-CE6N5FR534
-  consent:
-    title: Cookie consent
-    description: >- 
-      We use cookies to recognize your repeated visits and preferences, as well
-      as to measure the quality of our articles and whether users
-      find what they're searching for. With your consent, you're helping us to
-      make our articles better.
-    actions:
-      - accept
-      - manage 
+  # analytics:
+  #   feedback:
+  #     title: Was this page helpful?
+  #     ratings:
+  #       - icon: material/thumb-up-outline
+  #         name: This page was helpful
+  #         data: 1
+  #         note: >-
+  #           Thanks for your feedback!
+  #       - icon: material/thumb-down-outline
+  #         name: This page could be improved
+  #         data: 0
+  #         note: >-
+  #           Thanks for your feedback!
+  #   provider: google
+  #   property: G-CE6N5FR534
+  # consent:
+  #   title: Cookie consent
+  #   description: >- 
+  #     We use cookies to recognize your repeated visits and preferences, as well
+  #     as to measure the quality of our articles and whether users
+  #     find what they're searching for. With your consent, you're helping us to
+  #     make our articles better.
+  #   actions:
+  #     - accept
+  #     - manage 
   generator: false
   social:
     - icon: fontawesome/brands/github
@@ -93,6 +93,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
   - attr_list
   - md_in_html
 
