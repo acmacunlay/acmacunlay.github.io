@@ -23,6 +23,8 @@ Incorporating AWS CloudWatch Logs into Python applications via a custom logging 
 
 ??? note "Changelog"
 
+    - 2023-10-27
+        - minor formatting
     - 2023-10-15
         - minor formatting
     - 2023-10-14
@@ -53,7 +55,7 @@ pip install boto3 boto3-stubs[logs]
 
 Step 2: Create a custom CloudWatch Logs handler by subclassing the `logging.Handler` class. Override the `emit` method to send log messages to CloudWatch Logs:
 
-!!! note
+!!! tip
     The snippet below is annotated to explain blocks of code inline.
 
 ```python title="aws_cloudwatch_logs_handler.py" linenums="1"
@@ -68,28 +70,9 @@ from mypy_boto3_logs import client, type_defs
 
 LogGroupRetentionDaysType = typing.Optional[
     typing.Literal[
-        1,
-        3,
-        5,
-        7,
-        14,
-        30,
-        60,
-        90,
-        120,
-        150,
-        180,
-        365,
-        400,
-        545,
-        731,
-        1096,
-        1827,
-        2192,
-        2557,
-        2922,
-        3288,
-        3653,
+        1, 3, 5, 7, 14, 30, 60, 90, 120, 150,
+        180, 365, 400, 545, 731, 1096, 1827,
+        2192, 2557, 2922, 3288, 3653,
     ]
 ]
 """
