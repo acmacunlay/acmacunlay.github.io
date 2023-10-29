@@ -83,7 +83,7 @@ rich
 
 ### Client and Exceptions
 
-Creating a `boto3` client for Amazon S3 and handling client exceptions in Python is relatively straightforward. `boto3` provides a convenient way to interact with AWS services, including S3. Creating an S3 client and handling exceptions can be done as shown below:
+Creating a Boto3 client for Amazon S3 and handling client exceptions in Python is relatively straightforward. Boto3 provides a convenient way to interact with AWS services, including S3. Creating an S3 client and handling exceptions can be done as shown below:
 
 === "aws_s3/api.py"
 
@@ -548,7 +548,7 @@ Output:
 
 ### File/Object CRUD Operations Using Presigned URLs
 
-Creating presigned URLs for S3 objects using `boto3` is essential when you need to grant temporary, controlled access to your objects. To generate a presigned URL, specify the S3 bucket name and the object's key (the filename or identifier). Using the `generate_presigned_url` method on the S3 client, you can set the expiration time for the URL and any additional HTTP request parameters, such as downloading or uploading options. Once generated, the presigned URL provides secure, time-limited access to the specified object, which can be useful for sharing files, enabling temporary public access, or granting controlled access to specific users or applications without exposing your S3 objects publicly. For most cases, managing s3 objects using presigned URLs is the simplest and most secure way to do so. A sample implementation and usage is shown below:
+Creating presigned URLs for S3 objects using Boto3 is essential when you need to grant temporary, controlled access to your objects. To generate a presigned URL, specify the S3 bucket name and the object's key (the filename or identifier). Using the `generate_presigned_url` method on the S3 client, you can set the expiration time for the URL and any additional HTTP request parameters, such as downloading or uploading options. Once generated, the presigned URL provides secure, time-limited access to the specified object, which can be useful for sharing files, enabling temporary public access, or granting controlled access to specific users or applications without exposing your S3 objects publicly. For most cases, managing s3 objects using presigned URLs is the simplest and most secure way to do so. A sample implementation and usage is shown below:
 
 !!! note
 
