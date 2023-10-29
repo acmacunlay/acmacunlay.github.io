@@ -1,7 +1,7 @@
 ---
 slug: 524ea484-523b-4e98-ab37-bbbdb48af016
-draft: true
-date: 2023-10-07
+draft: false
+date: 2023-10-29
 authors:
   - achilles.macunlay
 categories:
@@ -24,7 +24,7 @@ Amazon S3 (Simple Storage Service) is a pivotal component in cloud computing and
 
 ??? note "Changelog"
 
-    - 2023-10-07
+    - 2023-10-29
         - initially published
 
 ---
